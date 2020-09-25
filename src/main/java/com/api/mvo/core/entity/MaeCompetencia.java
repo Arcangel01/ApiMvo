@@ -60,7 +60,7 @@ public class MaeCompetencia implements Serializable {
 	@Column(name = "EST_REGISTRO")
 	private short estRegistro;
 
-	@OneToOne(mappedBy = "maeCompetencia", cascade = CascadeType.ALL )
+	@OneToOne(mappedBy = "maeCompetencia" )
 	private MaeConocimientoMedir maeConocimientoMedir;
 
 	public MaeCompetencia() {
