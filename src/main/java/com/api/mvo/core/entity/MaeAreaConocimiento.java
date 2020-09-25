@@ -10,10 +10,13 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,7 +25,7 @@ import javax.validation.constraints.Size;
  * Clase que representa a la entidad area de conocimiento.
  * 
  * @author jcatangu
- * @version: 23/09/2020
+ * @date: 23/09/2020
  */
 @Entity
 @Table(name = "MAE_AREA_CONOCIMIENTO")
@@ -32,11 +35,14 @@ public class MaeAreaConocimiento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ID. Interno que Identifica la Llave Primaria del Area de Conocimiento.
+	 * ID. Interno que Identifica la Llave Primaria del Area de
+	 * Conocimiento. 
 	 */
 	@Id
 	@Basic(optional = false)
 	@NotNull
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MAE_AREA_CONOCIMIENTO_SEQ")
+	@SequenceGenerator(name="MAE_AREA_CONOCIMIENTO_SEQ", sequenceName="MAE_AREA_CONOCIMIENTO_SEQ", allocationSize=1)
 	@Column(name = "ID_AREA_CONOCIMIENTO")
 	private Long idAreaConocimiento;
 
@@ -68,8 +74,11 @@ public class MaeAreaConocimiento implements Serializable {
 	public MaeAreaConocimiento() {
 	}
 
-	public MaeAreaConocimiento(Long idAreaConocimiento) {
-		this.idAreaConocimiento = idAreaConocimiento;
+	public MaeAreaConocimiento(String nomAreaConocimiento, String desAreaConocimiento, short estRegistro) {
+		// this.idAreaConocimiento = idAreaConocimiento;
+		this.nomAreaConocimiento = nomAreaConocimiento;
+		this.desAreaConocimiento = desAreaConocimiento;
+		this.estRegistro = estRegistro;
 	}
 
 	public MaeAreaConocimiento(Long idAreaConocimiento, short estRegistro) {

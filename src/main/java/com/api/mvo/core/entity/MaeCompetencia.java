@@ -10,10 +10,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,25 +31,27 @@ import javax.validation.constraints.Size;
 @Table(name = "MAE_COMPETENCIA")
 @NamedQueries({ @NamedQuery(name = "MaeCompetencia.findAll", query = "SELECT m FROM MaeCompetencia m") })
 public class MaeCompetencia implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * ID. Interno que Identifica la Llave Primaria de la Competencia.
 	 */
 	@Id
 	@Basic(optional = false)
 	@NotNull
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MAE_COMPETENCIA_SEQ")
+	@SequenceGenerator(name = "MAE_COMPETENCIA_SEQ", sequenceName = "MAE_COMPETENCIA_SEQ", allocationSize = 1)
 	@Column(name = "ID_COMPETENCIA")
 	private Long idCompetencia;
-	
+
 	/**
 	 * Descripción de Competencia.
 	 */
 	@Size(max = 100)
 	@Column(name = "DES_COMPETENCIA")
 	private String desCompetencia;
-	
+
 	/**
 	 * Estado del registro. 1 = Activo, 0=Inactivo.
 	 */
@@ -54,8 +59,8 @@ public class MaeCompetencia implements Serializable {
 	@NotNull
 	@Column(name = "EST_REGISTRO")
 	private short estRegistro;
-	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "maeCompetencia")
+
+	@OneToOne(mappedBy = "maeCompetencia", cascade = CascadeType.ALL )
 	private MaeConocimientoMedir maeConocimientoMedir;
 
 	public MaeCompetencia() {
@@ -67,6 +72,11 @@ public class MaeCompetencia implements Serializable {
 
 	public MaeCompetencia(Long idCompetencia, short estRegistro) {
 		this.idCompetencia = idCompetencia;
+		this.estRegistro = estRegistro;
+	}
+
+	public MaeCompetencia(String descripcion, short estRegistro) {
+		this.desCompetencia = descripcion;
 		this.estRegistro = estRegistro;
 	}
 

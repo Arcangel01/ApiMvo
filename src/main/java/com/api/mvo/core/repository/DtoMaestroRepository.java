@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.api.mvo.core.dto.MaestroDto;
 import com.api.mvo.core.entity.Dtomaestro;
 
 @Repository("repoDto")
@@ -15,6 +16,6 @@ public interface DtoMaestroRepository extends JpaRepository<Dtomaestro, Integer>
 	
 	public Dtomaestro findByIdmaestro(BigDecimal id);
 	
-	public abstract Dtomaestro save(Dtomaestro dtomaestro);
+	public <S extends Dtomaestro> S save(S dtomaestro);
 	
 }
